@@ -17,9 +17,9 @@ namespace {
 constexpr int kWorkflowBmp = 0;
 constexpr int kRunnerBmp = 1;
 constexpr int kEventBmp = 2;
-constexpr int kParameterBmp = 3;
+// constexpr int kParameterBmp = 3;
 constexpr int kDeviceBmp = 4;
-
+// constexpr int kPropertyBmp = 5;
 }
 namespace workflow::gui {
 
@@ -346,13 +346,15 @@ void EventPanel::OnDeleteEvent(wxCommandEvent&) {
 
 void EventPanel::OnRightClick(wxTreeListEvent&) {
   wxMenu menu;
-  menu.Append(kIdOpenLogFile, L"Open Log File");
-  menu.AppendSeparator();
+
   menu.Append(kIdNewEvent, wxGetStockLabel(wxID_NEW));
   menu.Append(kIdEditEvent, wxGetStockLabel(wxID_EDIT));
   menu.Append(kIdCopyEvent, wxGetStockLabel(wxID_COPY));
   menu.Append(kIdRenameEvent, wxString("Rename"));
   menu.Append(kIdDeleteEvent, wxGetStockLabel(wxID_DELETE));
+  menu.AppendSeparator();
+  menu.Append(kIdOpenLogFile, L"Open Log File");
+
   PopupMenu(&menu);
 }
 

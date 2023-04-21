@@ -15,6 +15,7 @@ constexpr wxWindowID kIdCopyParameter = 12;
 constexpr wxWindowID kIdRenameParameter = 13;
 constexpr wxWindowID kIdDeleteParameter = 14;
 constexpr wxWindowID kIdParameterList = 15;
+constexpr wxWindowID kIdGeneralList = 16;
 
 constexpr wxWindowID kIdNewWorkflow = 20;
 constexpr wxWindowID kIdEditWorkflow = 21;
@@ -47,4 +48,11 @@ constexpr wxWindowID kIdCopyTemplate = 52;
 constexpr wxWindowID kIdRenameTemplate = 53;
 constexpr wxWindowID kIdDeleteTemplate = 54;
 constexpr wxWindowID kIdTemplateList = 55;
+
+constexpr wxWindowID kIdNewProperty = 60;
+constexpr wxWindowID kIdEditProperty = 61;
+// constexpr wxWindowID kIdCopyProperty = 62;
+// constexpr wxWindowID kIdRenameProperty = 63;
+// constexpr wxWindowID kIdDeleteProperty = 64;
+
 };

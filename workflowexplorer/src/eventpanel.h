@@ -14,7 +14,6 @@ class EventPanel : public wxPanel {
  public:
   explicit EventPanel(wxWindow *parent);
 
-
   void Update() override;
 
   void OnUpdateNewEvent(wxUpdateUIEvent& event);

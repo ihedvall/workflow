@@ -18,7 +18,8 @@ add_executable(workflowexplorer
         src/workflowdialog.cpp src/workflowdialog.h
         src/eventpanel.cpp src/eventpanel.h
         src/runnerdialog.cpp src/runnerdialog.h
-        src/templatepanel.cpp src/templatepanel.h)
+        src/templatepanel.cpp src/templatepanel.h src/generalpanel.cpp src/generalpanel.h src/propertydialog.cpp src/propertydialog.h)
+
 
 
 target_include_directories(workflowexplorer PRIVATE ${wxWidgets_INCLUDE_DIRS})

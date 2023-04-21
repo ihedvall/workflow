@@ -34,6 +34,10 @@ class MainFrame : public wxFrame {
 
   void OnUpdateTemplate(wxUpdateUIEvent &event);
   void OnTemplate(wxCommandEvent& event);
+
+  void OnUpdateProperty(wxUpdateUIEvent &event);
+  void OnProperty(wxCommandEvent& event);
+
  wxDECLARE_EVENT_TABLE();
 };
 }
