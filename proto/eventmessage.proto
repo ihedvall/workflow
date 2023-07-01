@@ -1,0 +1,55 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+
+package event;
+
+enum Severity {
+  Emergency = 0;      ///< System is unusable.
+  Alert = 1;          ///< Action must be taken immediately.
+  Critical = 2;       ///< Critical condition.
+  Error = 3;          ///< Error condition.
+  Warning = 4;        ///< Warning condition.
+  Notice = 5;         ///< Normal but significant condition.
+  Informational = 6;  ///< Informational message.
+  Debug = 7;           ///< Debug message.
+}
+
+message EventDataValue {
+  int64 identity = 1; ///< Unique database ID of the structured data definition.
+  string name = 2;    ///< Value name (display name)
+  string value = 3;   ///< Data value
+  string unit = 4;    ///< Unit
+}
+
+message EventMessage {
+  int64 identity = 1;                       ///< Unique ID (database index) of the event
+  Severity severity = 2;                    ///< Severity code.
+  uint32 facility = 3;                      ///< Facility code. Normally not used
+  google.protobuf.Timestamp timestamp = 4;  ///< Nano-second since 1970.
+  string text = 5;                          ///< Event message text
+  string hostname = 6;                 ///< Host name. Display name or name.
+  string application_name = 7;         ///< Application name
+  string process_id = 8;               ///< Process ID (PID). Not really used.
+  string message_id = 9;               ///< Message ID
+  repeated EventDataValue data_values = 10; ///< Extra data/value pair.
+}
+
+message EventLiteMessage {
+  int64 identity = 1;    ///< Unique ID (database index) of the event
+  Severity severity = 2; ///< Severity code.
+  google.protobuf.Timestamp timestamp = 3;  ///< Nano-second since 1970.
+  string text = 4;       ///< Event message text
+}
+
+message EventFilter {
+  optional Severity level = 1;
+  optional google.protobuf.Timestamp from_time = 2;
+  optional google.protobuf.Timestamp to_time = 3;
+  repeated EventDataValue data_values = 4; ///< Extra data/value pair.
+  optional int64 from_id = 5;
+  optional int64 to_id = 6;
+}
+
+message EventCount {
+  uint64 count = 1;
+}

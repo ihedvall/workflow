@@ -3,11 +3,13 @@
  * SPDX-License-Identifier: MIT
  */
 #pragma once
-#include <string>
+#include <wx/wx.h>
+
 #include <map>
 #include <memory>
-#include <wx/wx.h>
-#include "../src/genericworkflowserver.h"
+#include <string>
+
+#include "../../include/workflow/genericworkflowserver.h"
 
 namespace workflow::gui {
 

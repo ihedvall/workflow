@@ -3,7 +3,8 @@
 * SPDX-License-Identifier: MIT
  */
 
-#include "genericworkflowserver.h"
+#include "../include/workflow/genericworkflowserver.h"
+
 #include <ods/odsfactory.h>
 
 using namespace ods;
