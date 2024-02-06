@@ -82,7 +82,7 @@ void TemplatePanel::RedrawTemplateList() {
   const auto& server = app.Server();
   const auto& template_list = server.Templates();
   for (const auto& itr : template_list) {
-    const auto* runner = itr.second.get();
+    const auto* runner = itr.second;
     if (runner == nullptr) continue;
     const auto& name = runner->Name();
     const auto item = list_->AppendItem(root_item,
@@ -104,7 +104,7 @@ void TemplatePanel::Update() {
   RedrawTemplateList();
 }
 
-IRunner* TemplatePanel::GetSelectedTemplate() {
+const IRunner* TemplatePanel::GetSelectedTemplate() {
   if (list_ == nullptr) {
     return nullptr;
   }
@@ -162,7 +162,7 @@ void TemplatePanel::OnUpdateMultipleTemplate(wxUpdateUIEvent &event) {
     event.Enable(false);
     return;
   }
-  const auto root_item = list_->GetRootItem();
+
   wxTreeListItems selection_list;
   list_->GetSelections(selection_list);
   event.Enable(!selection_list.empty());
@@ -192,13 +192,14 @@ void TemplatePanel::OnNewTemplate(wxCommandEvent&) {
     return;
   }
 
-  server.AddTemplate(new_template);
+  // Todo:: Refactoring this function. Remove ?
+ // server.AddTemplate(new_template);
   RedrawTemplateList();
   SelectItem(name);
 }
 
 void TemplatePanel::OnEditTemplate(wxCommandEvent&) {
-  auto* selected = GetSelectedTemplate();
+  auto* selected = const_cast<IRunner*>(GetSelectedTemplate());
   if ( selected == nullptr) {
     return;
   }
@@ -235,7 +236,8 @@ void TemplatePanel::OnCopyTemplate(wxCommandEvent&) {
                  wxCENTRE | wxICON_ERROR, this);
     return;
   }
-  server.AddTemplate(new_template);
+  // Todo: Reinvestigate if the Add template is possible to maintain
+  // server.AddTemplate(new_template);
   RedrawTemplateList();
   SelectItem(new_name);
 }
@@ -256,6 +258,7 @@ void TemplatePanel::OnRenameTemplate(wxCommandEvent&) {
   if (new_name.IsEmpty()) {
     return;
   }
+
   auto& app = wxGetApp();
   auto& server = app.Server();
   const auto* exist = server.GetTemplate(new_name.ToStdString());
@@ -271,8 +274,9 @@ void TemplatePanel::OnRenameTemplate(wxCommandEvent&) {
   IRunner new_template(*selected);
 
   new_template.Name(new_name.ToStdString());
-  server.DeleteTemplate(selected);
-  server.AddTemplate(new_template);
+  // Todo: Can renaming a template be done ?
+  // server.DeleteTemplate(selected);
+  // server.AddTemplate(new_template);
   RedrawTemplateList();
   SelectItem(new_name.ToStdString());
 }
@@ -312,7 +316,8 @@ void TemplatePanel::OnDeleteTemplate(wxCommandEvent&) {
   auto& server = app.Server();
   for (const auto& item_name : del_list) {
     const auto* del = server.GetTemplate(item_name);
-    server.DeleteTemplate(del);
+    // Todo: Can a template be deleted ?
+    // server.DeleteTemplate(del);
   }
 
   RedrawTemplateList();

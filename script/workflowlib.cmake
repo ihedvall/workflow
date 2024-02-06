@@ -1,4 +1,4 @@
-if (NOT workflowlib_POPULATED)
+
 include (FetchContent)
 FetchContent_Declare(workflowlib
         GIT_REPOSITORY https://github.com/ihedvall/workflowlib.git
@@ -12,4 +12,3 @@ FetchContent_MakeAvailable(workflowlib)
 message(STATUS "WORKFLOWLIB Populated: " ${workflowlib_POPULATED})
 message(STATUS "WORKFLOWLIB Source Dir: " ${workflowlib_SOURCE_DIR})
 message(STATUS "WORKFLOWLIB Binary Dir: " ${workflowlib_BINARY_DIR})
-endif()

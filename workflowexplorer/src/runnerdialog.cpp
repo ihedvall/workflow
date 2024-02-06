@@ -27,7 +27,7 @@ wxArrayString Types() {
 wxArrayString Templates() {
   const auto& app = workflow::gui::wxGetApp();
   const auto& server = app.Server();
-  const auto& template_list = server.Templates();
+  const auto template_list = server.Templates();
   wxArrayString temp;
   for (const auto& itr : template_list) {
     temp.Add(wxString::FromUTF8(itr.first));

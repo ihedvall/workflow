@@ -21,7 +21,7 @@ class WorkflowExplorer : public wxApp {
 
   void OpenFile(const std::string& filename) const;
   WorkflowServer& Server() { return server_; }
-  const WorkflowServer& Server() const { return server_; }
+  const GenericWorkflowServer& Server() const { return server_; }
 
   std::string ConfigName() const;
 

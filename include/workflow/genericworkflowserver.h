@@ -4,6 +4,7 @@
  */
 
 #pragma once
+#include <map>
 #include "workflow/workflowserver.h"
 
 namespace workflow {
@@ -11,9 +12,6 @@ namespace workflow {
 class GenericWorkflowServer : public WorkflowServer {
  public:
   GenericWorkflowServer();
-  [[nodiscard]] std::unique_ptr<IRunner> CreateRunner(
-      const IRunner& source) override;
-  void CreateDefaultTemplates() override;
 };
 
 }  // namespace workflow

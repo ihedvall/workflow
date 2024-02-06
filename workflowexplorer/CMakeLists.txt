@@ -26,7 +26,7 @@ target_include_directories(workflowexplorer PRIVATE ${wxWidgets_INCLUDE_DIRS})
 target_include_directories(workflowexplorer PRIVATE ${Boost_INCLUDE_DIRS})
 target_include_directories(workflowexplorer PRIVATE ${utillib_SOURCE_DIR}/include)
 target_include_directories(workflowexplorer PRIVATE ${workflow_SOURCE_DIR}/include)
-target_include_directories(workflowexplorer PRIVATE ../src)
+target_include_directories(workflowexplorer PRIVATE ../include)
 target_compile_definitions(workflowexplorer PRIVATE XML_STATIC)
 
 if (MINGW)
@@ -59,3 +59,14 @@ if (WIN32)
 target_link_libraries(workflowexplorer PRIVATE secur32)
 target_link_libraries(workflowexplorer PRIVATE crypt32)
 endif()
+
+foreach (pqfile ${PostgreSQL_DEPENDENCIES})
+
+    #Copy the Postgres DLL/SO files to the current binary directory
+    add_custom_command(
+            TARGET workflowexplorer
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ARGS ${pqfile} "${CMAKE_CURRENT_BINARY_DIR}"
+    )
+endforeach ()

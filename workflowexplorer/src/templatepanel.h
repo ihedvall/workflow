@@ -32,7 +32,7 @@ class TemplatePanel : public wxPanel {
   wxImageList image_list_;
 
   void RedrawTemplateList();
-  [[nodiscard]] IRunner* GetSelectedTemplate();
+  [[nodiscard]] const IRunner* GetSelectedTemplate();
   void SelectItem(const std::string& name);
 
   wxDECLARE_EVENT_TABLE();
