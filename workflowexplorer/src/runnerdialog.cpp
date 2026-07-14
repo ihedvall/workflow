@@ -14,11 +14,11 @@ namespace {
 
 wxArrayString Types() {
   wxArrayString temp;
-  workflow::IRunner runner;
-  for (int type = static_cast<int>(workflow::RunnerType::InternalRunner);
-       type <= static_cast<int>(workflow::RunnerType::PythonRunner); ++type) {
-    runner.Type(static_cast<workflow::RunnerType>(type));
-    temp.Add(wxString::FromUTF8(runner.TypeAsString()));
+  workflow::ITask task;
+  for (int type = static_cast<int>(workflow::TaskType::InternalTask);
+       type <= static_cast<int>(workflow::TaskType::PythonTask); ++type) {
+    task.Type(static_cast<workflow::TaskType>(type));
+    temp.Add(wxString::FromUTF8(task.TypeAsString()));
   }
   temp.Sort();
   return temp;
@@ -43,7 +43,7 @@ wxBEGIN_EVENT_TABLE(RunnerDialog, wxDialog) //NOLINT
     EVT_COMBOBOX(kIdRunnerName, RunnerDialog::OnNameChange)
 wxEND_EVENT_TABLE()
 
-RunnerDialog::RunnerDialog(wxWindow *parent, IRunner& runner)
+RunnerDialog::RunnerDialog(wxWindow *parent, ITask& runner)
 : wxDialog(parent, wxID_ANY, "Runner Task Dialog" ,
                wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE),
       runner_(runner) {

@@ -131,7 +131,7 @@ void WorkflowPanel::RedrawWorkflowList() {
     list_->SetItemText(workflow_item, 2,
                        wxString::FromUTF8(workflow->StartEvent()));
 
-    const auto& runner_list = workflow->Runners();
+    const auto& runner_list = workflow->Tasks();
     for (const auto& runner : runner_list) {
       if (!runner) continue;
       const auto& runner_name = runner->Name();
@@ -171,7 +171,7 @@ void WorkflowPanel::Update() {
   RedrawWorkflowList();
 }
 
-IWorkflow* WorkflowPanel::GetSelectedWorkflow() {
+Workflow* WorkflowPanel::GetSelectedWorkflow() {
   if (list_ == nullptr) {
     return nullptr;
   }
@@ -199,7 +199,7 @@ IWorkflow* WorkflowPanel::GetSelectedWorkflow() {
   return server.GetWorkflow(name);
 }
 
-IRunner* WorkflowPanel::GetSelectedRunner() {
+ITask* WorkflowPanel::GetSelectedRunner() {
   auto* workflow = GetSelectedWorkflow();
   if (workflow == nullptr || list_ == nullptr) {
     return nullptr;
@@ -220,7 +220,7 @@ IRunner* WorkflowPanel::GetSelectedRunner() {
     return nullptr;
   }
   const auto& name = *runner_list.cbegin();
-  return workflow->GetRunner(name);
+  return workflow->GetTask(name);
 }
 
 void WorkflowPanel::SelectItem(const std::string& workflow,
@@ -320,7 +320,7 @@ void WorkflowPanel::OnNewWorkflow(wxCommandEvent&) {
   auto& app = wxGetApp();
   auto& server = app.Server();
 
-  IWorkflow workflow(&server);
+  Workflow workflow(&server);
   WorkflowDialog dialog(this, workflow);
   const auto ret = dialog.ShowModal();
   if (ret != wxID_OK) {
@@ -359,7 +359,7 @@ void WorkflowPanel::OnCopyWorkflow(wxCommandEvent&) {
   if (original == nullptr) {
     return;
   }
-  IWorkflow workflow(*original);
+  Workflow workflow(*original);
   workflow.Name("");
   WorkflowDialog dialog(this, workflow);
   const auto ret = dialog.ShowModal();
@@ -467,14 +467,14 @@ void WorkflowPanel::OnNewRunner(wxCommandEvent&) {
     return;
   }
 
-  IRunner runner;
+  ITask runner;
   RunnerDialog dialog(this, runner);
   const auto ret = dialog.ShowModal();
   if (ret != wxID_OK) {
     return;
   }
   const auto& name = runner.Name();
-  const auto exist = workflow->GetRunner(name) != nullptr;
+  const auto exist = workflow->GetTask(name) != nullptr;
   if (exist) {
     std::ostringstream msg;
     msg << "The name of the new task in the workflow, needs to be unique."
@@ -484,7 +484,7 @@ void WorkflowPanel::OnNewRunner(wxCommandEvent&) {
                  wxCENTRE | wxICON_ERROR, this);
     return;
   }
-  workflow->AddRunner(runner);
+  workflow->AddTask(runner);
   RedrawWorkflowList();
   SelectItem(workflow->Name(), name);
 }
@@ -508,7 +508,7 @@ void WorkflowPanel::OnCopyRunner(wxCommandEvent&) {
   if (original == nullptr || workflow == nullptr) {
     return;
   }
-  IRunner runner(*original);
+  ITask runner(*original);
   runner.Name("");
   RunnerDialog dialog(this, runner);
   const auto ret = dialog.ShowModal();
@@ -517,7 +517,7 @@ void WorkflowPanel::OnCopyRunner(wxCommandEvent&) {
   }
 
   const auto& new_name = runner.Name();
-  const auto exist = workflow->GetRunner(new_name) != nullptr;
+  const auto exist = workflow->GetTask(new_name) != nullptr;
   if (exist) {
     std::ostringstream msg;
     msg << "The name of the new task needs to be unique within the workflow."
@@ -527,7 +527,7 @@ void WorkflowPanel::OnCopyRunner(wxCommandEvent&) {
                  wxCENTRE | wxICON_ERROR, this);
     return;
   }
-  workflow->AddRunner(runner);
+  workflow->AddTask(runner);
   RedrawWorkflowList();
   SelectItem(workflow->Name(), new_name);
 }
@@ -549,7 +549,7 @@ void WorkflowPanel::OnRenameRunner(wxCommandEvent&) {
   if (new_name.IsEmpty()) {
     return;
   }
-  const auto* exist = workflow->GetRunner(new_name.ToStdString());
+  const auto* exist = workflow->GetTask(new_name.ToStdString());
   if (exist != nullptr && exist != runner) {
     std::ostringstream err;
     err << "The name of the task needs to be unique witin the workflow."
@@ -606,9 +606,9 @@ void WorkflowPanel::OnDeleteRunner(wxCommandEvent&) {
     if (workflow == nullptr) {
       continue;
     }
-    const auto* runner = workflow->GetRunner(item1.second);
+    const auto* runner = workflow->GetTask(item1.second);
     if (runner != nullptr) {
-      workflow->DeleteRunner(runner);
+      workflow->DeleteTask(runner);
     }
   }
 

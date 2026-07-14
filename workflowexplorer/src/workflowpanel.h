@@ -7,7 +7,7 @@
 
 #include <wx/wx.h>
 #include <wx/treelist.h>
-#include <workflow/iworkflow.h>
+#include <workflow/workflow.h>
 
 namespace workflow::gui {
 
@@ -44,8 +44,8 @@ class WorkflowPanel: public wxPanel  {
 
   void RedrawWorkflowList();
 
-  [[nodiscard]] IWorkflow* GetSelectedWorkflow();
-  [[nodiscard]] IRunner* GetSelectedRunner();
+  [[nodiscard]] Workflow* GetSelectedWorkflow();
+  [[nodiscard]] ITask* GetSelectedRunner();
   void SelectItem(const std::string& workflow, const std::string& runner);
 
   wxDECLARE_EVENT_TABLE();

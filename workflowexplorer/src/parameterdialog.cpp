@@ -15,7 +15,7 @@ namespace {
 
 wxArrayString DataTypes() {
   wxArrayString temp;
-  workflow::IParameter parameter;
+  workflow::Parameter parameter;
   for (auto type = static_cast<int>(workflow::ParameterDataType::FloatType);
        type <= static_cast<int>(workflow::ParameterDataType::ByteArrayType);
        ++type) {
@@ -55,7 +55,7 @@ wxArrayString Devices() {
   if (container != nullptr) {
     const auto& used_list = container->Devices();
     for (const auto& used : used_list) {
-      temp.Add(wxString::FromUTF8(used.first));
+      temp.Add(wxString::FromUTF8(used->Name()));
     }
   }
   return temp;
@@ -68,7 +68,7 @@ namespace workflow::gui {
 wxBEGIN_EVENT_TABLE(ParameterDialog, wxDialog) //NOLINT
 wxEND_EVENT_TABLE()
 
-ParameterDialog::ParameterDialog(wxWindow *parent, IParameter& parameter)
+ParameterDialog::ParameterDialog(wxWindow *parent, Parameter& parameter)
     : wxDialog(parent, wxID_ANY, "Parameter Dialog" ,
                wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE),
       parameter_(parameter) {

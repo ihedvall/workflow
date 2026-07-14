@@ -36,7 +36,7 @@ namespace workflow::gui {
 wxBEGIN_EVENT_TABLE(WorkflowDialog, wxDialog) //NOLINT
 wxEND_EVENT_TABLE()
 
-WorkflowDialog::WorkflowDialog(wxWindow *parent, IWorkflow& workflow)
+WorkflowDialog::WorkflowDialog(wxWindow *parent, Workflow& workflow)
 : wxDialog(parent, wxID_ANY, "Workflow Dialog" ,
        wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE),
 workflow_(workflow) {

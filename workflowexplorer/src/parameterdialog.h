@@ -5,18 +5,18 @@
 
 #pragma once
 #include <wx/wx.h>
-#include <workflow/iparameter.h>
+#include <workflow/parameter.h>
 
 namespace workflow::gui {
 
 class ParameterDialog : public wxDialog {
  public:
-  ParameterDialog(wxWindow* parent, IParameter& parameter );
+  ParameterDialog(wxWindow* parent, Parameter& parameter );
 
   bool TransferDataToWindow() override;
   bool TransferDataFromWindow() override;
  private:
-  IParameter& parameter_;
+  Parameter& parameter_;
 
   wxString name_;
   wxString display_name_;

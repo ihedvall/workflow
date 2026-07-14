@@ -5,17 +5,17 @@
 
 #pragma once
 #include <wx/wx.h>
-#include <workflow/iworkflow.h>
+#include <workflow/workflow.h>
 namespace workflow::gui {
 
 class WorkflowDialog : public wxDialog {
  public:
-  WorkflowDialog(wxWindow* parent, IWorkflow& workflow );
+  WorkflowDialog(wxWindow* parent, Workflow& workflow );
 
   bool TransferDataToWindow() override;
   bool TransferDataFromWindow() override;
  private:
-  IWorkflow& workflow_;
+  Workflow& workflow_;
   wxString name_;
   wxString description_;
   wxString event_;

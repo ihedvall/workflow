@@ -5,18 +5,18 @@
 
 #pragma once
 #include <wx/wx.h>
-#include <workflow/ievent.h>
+#include <workflow/event.h>
 
 namespace workflow::gui {
 
 class EventDialog : public wxDialog {
  public:
-  EventDialog(wxWindow* parent, IEvent& event );
+  EventDialog(wxWindow* parent, workflow::Event& event );
 
   bool TransferDataToWindow() override;
   bool TransferDataFromWindow() override;
  private:
-  IEvent& event_;
+  workflow::Event& event_;
   wxString name_;
   wxString description_;
   wxString type_;

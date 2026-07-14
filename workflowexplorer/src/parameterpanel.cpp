@@ -71,7 +71,7 @@ void ParameterPanel::OnNewParameter(wxCommandEvent &event) {
   if (list_ == nullptr) {
     return;
   }
-  IParameter parameter;
+  Parameter parameter;
   auto& app = wxGetApp();
 
   ParameterDialog dialog(this, parameter);

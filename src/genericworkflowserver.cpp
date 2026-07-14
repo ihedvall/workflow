@@ -6,14 +6,14 @@
 #include "workflow/genericworkflowserver.h"
 
 #include <ods/odsfactory.h>
-#include <workflow/irunnerfactory.h>
+#include <workflow/itaskfactory.h>
 using namespace ods;
 
 namespace workflow {
 
 GenericWorkflowServer::GenericWorkflowServer() {
   const auto& ods_factory = OdsFactory::Instance();
-  AddRunnerFactory(ods_factory);
+  AddTaskFactory(ods_factory);
 }
 
 

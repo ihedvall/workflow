@@ -104,7 +104,7 @@ void TemplatePanel::Update() {
   RedrawTemplateList();
 }
 
-const IRunner* TemplatePanel::GetSelectedTemplate() {
+const ITask* TemplatePanel::GetSelectedTemplate() {
   if (list_ == nullptr) {
     return nullptr;
   }
@@ -172,7 +172,7 @@ void TemplatePanel::OnNewTemplate(wxCommandEvent&) {
   if (list_ == nullptr) {
     return;
   }
-  IRunner new_template;
+  ITask new_template;
   RunnerDialog dialog(this, new_template);
   const auto ret = dialog.ShowModal();
   if (ret != wxID_OK) {
@@ -199,7 +199,7 @@ void TemplatePanel::OnNewTemplate(wxCommandEvent&) {
 }
 
 void TemplatePanel::OnEditTemplate(wxCommandEvent&) {
-  auto* selected = const_cast<IRunner*>(GetSelectedTemplate());
+  auto* selected = const_cast<ITask*>(GetSelectedTemplate());
   if ( selected == nullptr) {
     return;
   }
@@ -216,7 +216,7 @@ void TemplatePanel::OnCopyTemplate(wxCommandEvent&) {
   if (original == nullptr) {
     return;
   }
-  IRunner new_template(*original);
+  ITask new_template(*original);
   new_template.Name("");
   RunnerDialog dialog(this, new_template);
   const auto ret = dialog.ShowModal();
@@ -271,7 +271,7 @@ void TemplatePanel::OnRenameTemplate(wxCommandEvent&) {
     return;
   }
 
-  IRunner new_template(*selected);
+  ITask new_template(*selected);
 
   new_template.Name(new_name.ToStdString());
   // Todo: Can renaming a template be done ?

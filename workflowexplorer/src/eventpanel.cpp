@@ -110,7 +110,7 @@ void EventPanel::Update() {
   RedrawEventList();
 }
 
-IEvent* EventPanel::GetSelectedEvent() {
+workflow::Event* EventPanel::GetSelectedEvent() {
   if (list_ == nullptr) {
     return nullptr;
   }
@@ -182,7 +182,7 @@ void EventPanel::OnNewEvent(wxCommandEvent&) {
   if (list_ == nullptr) {
     return;
   }
-  IEvent new_event;
+  workflow::Event new_event;
   EventDialog dialog(this, new_event);
   const auto ret = dialog.ShowModal();
   if (ret != wxID_OK) {
@@ -229,7 +229,7 @@ void EventPanel::OnCopyEvent(wxCommandEvent&) {
   if (original == nullptr) {
     return;
   }
-  IEvent new_event(*original);
+  workflow::Event new_event(*original);
   new_event.Name("");
   EventDialog dialog(this, new_event);
   const auto ret = dialog.ShowModal();
@@ -290,7 +290,7 @@ void EventPanel::OnRenameEvent(wxCommandEvent&) {
     return;
   }
 
-  IEvent new_event(*selected);
+  workflow::Event new_event(*selected);
 
   new_event.Name(new_name.ToStdString());
   engine->DeleteEvent(selected);

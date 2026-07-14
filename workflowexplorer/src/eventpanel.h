@@ -6,7 +6,7 @@
 #pragma once
 #include <wx/wx.h>
 #include <wx/treelist.h>
-#include <workflow/ievent.h>
+#include <workflow/event.h>
 
 namespace workflow::gui {
 
@@ -31,7 +31,7 @@ class EventPanel : public wxPanel {
   wxImageList image_list_;
 
   void RedrawEventList();
-  [[nodiscard]] IEvent* GetSelectedEvent();
+  [[nodiscard]] workflow::Event* GetSelectedEvent();
   void SelectItem(const std::string& event);
 
   wxDECLARE_EVENT_TABLE();

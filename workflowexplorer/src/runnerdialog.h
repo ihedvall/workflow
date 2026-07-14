@@ -5,17 +5,17 @@
 
 #pragma once
 #include <wx/wx.h>
-#include <workflow/irunner.h>
+#include <workflow/itask.h>
 namespace workflow::gui {
 
 class RunnerDialog : public wxDialog {
  public:
-  RunnerDialog(wxWindow* parent, IRunner& runner );
+  RunnerDialog(wxWindow* parent, ITask& task );
 
   bool TransferDataToWindow() override;
   bool TransferDataFromWindow() override;
  private:
-  IRunner& runner_;
+  ITask& runner_;
   wxString name_;
   wxString description_;
   wxString documentation_;

@@ -10,6 +10,7 @@
 
 #include <algorithm>
 #include <boost/locale.hpp>
+#include <boost/asio.hpp>
 #include <boost/process.hpp>
 #include <filesystem>
 
@@ -22,6 +23,10 @@
 using namespace util::log;
 using namespace std::filesystem;
 using namespace util::xml;
+
+namespace {
+  boost::asio::io_context kIoContext;
+}
 
 namespace workflow::gui {
 
@@ -54,6 +59,7 @@ bool WorkflowExplorer::OnInit() {
 
   SetAppDisplayName("Workflow Explorer");
   SetAppName("WorkflowExplorer");
+
 
   // Set up the log file.
   // The log file will be in c:/programdata/report_server/workflow_explorer.log
@@ -132,7 +138,8 @@ void WorkflowExplorer::OnUpdateOpenLogFile(wxUpdateUIEvent &event) {
 
 void WorkflowExplorer::OpenFile(const std::string& filename) const {
   if (!notepad_.empty()) {
-    boost::process::spawn(notepad_, filename);
+    boost::process::process proc(kIoContext, notepad_, {filename});
+    proc.detach();
   }
 }
 
@@ -208,7 +215,7 @@ bool WorkflowExplorer::ReadConfigFile() {
       return false;
     }
     server_.ReadXml(*root);
-    original_ = server_;
+    original_.ReadXml(*root);
   } catch (const std::exception& err) {
     LOG_DEBUG() << "File system error. Error: " << err.what();
     config_file_.clear();
@@ -276,7 +283,7 @@ bool WorkflowExplorer::SaveConfigFile() {
       return false;
     }
     server_.SaveXml(*root);
-    original_ = server_;
+    original_.ReadXml(*root);
     const auto write = xml_file->WriteFile();
     if (!write) {
       LOG_DEBUG() << "Failed to write the file. File: " << config_file_;

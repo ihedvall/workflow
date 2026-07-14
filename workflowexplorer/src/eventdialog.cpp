@@ -12,7 +12,7 @@ namespace {
 
 wxArrayString EventTypes() {
   wxArrayString temp;
-  workflow::IEvent event;
+  workflow::Event event;
   for (auto type = static_cast<int>(workflow::EventType::Init);
        type <= static_cast<int>(workflow::EventType::Parameter);
        ++type) {
@@ -31,7 +31,7 @@ namespace workflow::gui {
 wxBEGIN_EVENT_TABLE(EventDialog, wxDialog) //NOLINT
 wxEND_EVENT_TABLE()
 
-EventDialog::EventDialog(wxWindow *parent, IEvent& event)
+EventDialog::EventDialog(wxWindow *parent, workflow::Event& event)
 : wxDialog(parent, wxID_ANY, "Event Dialog" ,
            wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE),
   event_(event) {
